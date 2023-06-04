@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <title>Карайкоз Н. В. АДБ-21-11</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+<body>
+    <div class="header">
+      <div class="full-name">
+        <span class="first-name">Карайкоз</span> 
+        <span class="last-name">Никита</span>
+      </div>
+      <div class="info">
+        <span class="email">Email: </span>
+        <span class="email-val">nikita27.122003@gmail.com</span>
+        <span class="separator"></span>
+      </div>
+        <span class="phone">Phone: </span>
+        <span class="phone-val">+7(985)365-**-**</span>
+      </div>
+      <div class="about">
+        <span class="skills">Мои навыки:</span>
+        <span class="desc"> базово влядею языками программирования(C++; Python).</span>
+      </div>
+    </div>
+    <div class="details">
+      <div class="section">
+        <div class="section__title">Образование:</div>
+        <div class="section__list">
+          <div class="section__list-item">
+            <div class="first">
+              <div class="name">Школа №460</div>
+              <div class="addr">Москва, РФ</div>
+              <div class="">2010 - 2021</div>
+            </div>
+            <div class="second">
+              <div class="name">МГТУ "СТАНКИН"</div>
+              <div class="addr">Москва, РФ</div>
+              <div class="duration">2021 - по сей день</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="picture">
+      <div class="picture-title">Пейзаж</div>
+      <img src="https://image.winudf.com/v2/image1/Y29tLnRob3JhcHBzYW5kcm9pZC5sYW5kc2NhcGVzX3NjcmVlbl8wXzE1NjI4NjA3MjZfMDIz/screen-0.jpg?fakeurl=1&type=.jpg">
+    </div>
+    <div class="button">
+      <div class="button-title">Нажим на меня</div>
+      <div class="button-sama">
+        <button class="styled" type="button" onclick="javascript:alert('Вы нажали на кнопку!');">Сюда!</button>
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="data__title">Сбор данных</div>
+      <button class="btn" onclick="myFunction()">Начать сбор данных</button>
+      <ul id="demo"><li>id: 108290</li><li>servoDriveID: 1</li><li>actVelocity: 2,1</li><li>actPhaseU: 0,101</li><li>actPhaseV: 0,04</li><li>actOutCurrent: 0,066</li><li>date: 2023-06-01T12:01:33.966+00:00</li></ul>
+    </div>
+    <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      function myFunction() {
+        (async () => {
+          let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
+          let el = document.getElementById('demo')
+          el.innerHTML = ""
+          let text = await response.text(); // прочитать тело ответа как текст
+          for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+            const newEl = document.createElement("li")
+            newEl.appendChild(document.createTextNode(`${key}: ${value}`))
+            el.appendChild(newEl)
+            await sleep(100)
+          }
+        })()
+      }
+
+    </script>
+</body>
+</html>
+  
