@@ -1,48 +1,552 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заголовок страницы</title>
-    <link rel="stylesheet" href="./styles/style.css">
-
-    <meta property="og:title" content="Заголовок страницы в OG">
-    <meta property="og:description" content="Описание страницы в OG">
-    <meta property="og:image" content="https://example.com/image.jpg">
-    <meta property="og:url" content="https://example.com/">
+<head>
+    <title>Вкладка со страничкой</title>
+    <link rel="stylesheet" href="style.css">
   </head>
+<body>
+    <div class="header">
+      <div class="full-name">
+        <span class="first-name">Ермолаев</span> 
+        <span class="last-name">Артем</span>
+      </div>
+      <div class="contact-info">
+        <span class="email">Email: </span>
+        <span class="email-val">gmail@gmail.com</span>
+        <span class="separator"></span>
+        <span class="phone">Phone: </span>
+        <span class="phone-val">123-456-7890</span>
+      </div>
+      <div class="about">
+        <span class="position">Описание моих умений:</span>
+        <span class="desc"> Я что-то умею.</span>
+      </div>
+    </div>
+    <div class="details">
+      <div class="section">
+        <div class="section__title">Образование</div>
+        <div class="section__list">
+          <div class="section__list-item">
+            <div class="left">
+              <div class="name">МГТУ "СТАНКИН"</div>
+              <div class="addr">Москва, РФ</div>
+              <div class="duration">2021 - Now</div>
+            </div>
+            <div class="right">
+              <div class="name">15.03.06</div>
+              <div class="desc">ADB-21-11</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="picture">
+      <div class="picture-title">Картинка</div>
+      <img src="https://i.imgflip.com/3oidrb.jpg">
+    </div>
+    <div class="knopka">
+      <div class="knopka-title">Кнопка</div>
+      <div class="knopka-sama">
+        <button class="styled" type="button" onclick="javascript:alert('Кнопка работает!');">Кнопка</button>
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="data__title">Сбор данных</div>
+      <button class="btn" onclick="myFunction()">Начать сбор данных</button>
+      <ul id="demo"><li>id: 108290</li><li>servoDriveID: 1</li><li>actVelocity: 2,1</li><li>actPhaseU: 0,101</li><li>actPhaseV: 0,04</li><li>actOutCurrent: 0,066</li><li>date: 2023-06-01T12:01:33.966+00:00</li></ul>
+    </div>
+    <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      function myFunction() {
+        (async () => {
+          let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
+          let el = document.getElementById('demo')
+          el.innerHTML = ""
+          let text = await response.text(); // прочитать тело ответа как текст
+          for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+            const newEl = document.createElement("li")
+            newEl.appendChild(document.createTextNode(`${key}: ${value}`))
+            el.appendChild(newEl)
+            await sleep(100)
+          }
+        })()
+      }
+
+    </script>
+     
+    <h1>Все представленное не несет смысловой нагрузки и является лишь демонстрацией полученных навыков</h1>
+  
+
+
+<style>
+  body {
+  min-height: 100%;  
+  background: #3c3c3c;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #222;
+  font-size: 14px;
+  line-height: 26px;
+  padding-bottom: 50px;
+  color: white;
+  text-align: center;
+}
+  .header {
+  margin-bottom: 30px;
+  margin-top: 100px;
+    
+  .full-name {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  
+  .first-name {
+    font-weight: 700;
+  }
+  
+  .last-name {
+    font-weight: 300;
+  }
+  
+  .contact-info {
+    margin-bottom: 20px;
+  }
+  
+  .email ,
+  .phone {
+    color: #9ACD32;
+    font-weight: 300;
+  } 
+  
+  .separator {
+    height: 10px;
+    display: inline-block;
+    border-left: 10px solid #00FF00;
+    margin: 0px 10px;
+  }
+  
+  .position {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: underline;
+  }
+}
+  .details {
+  line-height: 20px;
+  
+  .section {
+    margin-bottom: 40px;  
+  }
+  
+  .section:last-of-type {
+    margin-bottom: 0px;  
+  }
+  
+  .section__title {
+    letter-spacing: 2px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+  
+  .section__list-item {
+    margin-bottom: 40px;
+  }
+  
+  .section__list-item:last-of-type {
+    margin-bottom: 0;
+  }
+  
+  .left ,
+  .right {
+    vertical-align: top;
+    display: inline-block;
+  }
+  
+  .left {
+    width: 30%;    
+  }
+  
+  .right {
+    tex-align: right;
+    width: 30%;    
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+}
+  .picture {
+  margin-top: 30px;
+
+  .picture-title {
+    letter-spacing: 1px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+}
+.knopka {
+  margin-top: 30px;
+
+
+  .knopka-title {
+    letter-spacing: 1px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+  .knopka-sama {
+    .styled {
+      border: 0;
+      line-height: 2.5;
+      padding: 0 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4B0082;
+      border-radius: 10px;
+      background-color: #9ACD32;
+    }
+    .styled:hover {
+      background-color: rgba(255, 0, 0, 1);
+    }
+    .styled:active {
+      background-color: rgba(0, 0, 255, 1);
+    }
+  }
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  justify-content: start;
+  min-height: 370px;
+  color: #9ACD32;
+  
+  .data__title {
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+  .btn {
+    border-radius: 4px;
+    border: solid 2px #4CAF50;
+    color: #DC143C;
+    background-color: #9ACD32;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 14px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: red;
+    color: #4B0082;
+  }
+
+}
+
+  h1 {
+    width: 550px;
+    font-size: 10px;
+    color: blue;
+    background-color: #FFDEAD;
+    border: 4px solid red;
+    margin: 0 auto;
+}
+  
+</style>
+</body>
+<html><head>
+    <title>Вкладка со страничкой</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
   <body>
-    <header>
-      <h1>Это мой сайт</h1>
-      <p>Он хороший</p>
-      <nav>
-        <ul>
-          <li><a href="index.html">Эта страница</a></li>
-          <li><a href="catalog.html">Другая страница</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <article>
-        <section>
-          <h2>Первая секция</h2>
-          <p>Она обо мне</p>
-          <img src="images/image.png" alt="Человек и пароход">
-          <p>Но может быть и о семантике, я пока не решил.</p>
-        </section>
-        <section>
-          <h2>Вторая секция</h2>
-          <p>Она тоже обо мне</p>
-        </section>
-        <section>
-          <h2>И третья</h2>
-          <p>Вы уже должны были начать догадываться.</p>
-        </section>
-      </article>
-    </main>
-    <footer>
-      <p>Сюда бы я вписал информацию об авторе и ссылки на другие сайты</p>
-    </footer>
-    <!-- сюда можно подключить jquery <script src="scripts/app.js" defer></script> -->
-  </body>
-</html>
+    <div class="header">
+      <div class="full-name">
+        <span class="first-name">Ермолаев</span> 
+        <span class="last-name">Артем</span>
+      </div>
+      <div class="contact-info">
+        <span class="email">Email: </span>
+        <span class="email-val">gmail@gmail.com</span>
+        <span class="separator"></span>
+        <span class="phone">Phone: </span>
+        <span class="phone-val">123-456-7890</span>
+      </div>
+      <div class="about">
+        <span class="position">Описание моих умений:</span>
+        <span class="desc"> Я что-то умею.</span>
+      </div>
+    </div>
+    <div class="details">
+      <div class="section">
+        <div class="section__title">Образование</div>
+        <div class="section__list">
+          <div class="section__list-item">
+            <div class="left">
+              <div class="name">МГТУ "СТАНКИН"</div>
+              <div class="addr">Москва, РФ</div>
+              <div class="duration">2021 - Now</div>
+            </div>
+            <div class="right">
+              <div class="name">15.03.06</div>
+              <div class="desc">ADB-21-11</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="picture">
+      <div class="picture-title">Картинка</div>
+      <img src="https://i.imgflip.com/3oidrb.jpg">
+    </div>
+    <div class="knopka">
+      <div class="knopka-title">Кнопка</div>
+      <div class="knopka-sama">
+        <button class="styled" type="button" onclick="javascript:alert('Кнопка работает!');">Кнопка</button>
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="data__title">Сбор данных</div>
+      <button class="btn" onclick="myFunction()">Начать сбор данных</button>
+      <ul id="demo"><li>id: 108290</li><li>servoDriveID: 1</li><li>actVelocity: 2,1</li><li>actPhaseU: 0,101</li><li>actPhaseV: 0,04</li><li>actOutCurrent: 0,066</li><li>date: 2023-06-01T12:01:33.966+00:00</li></ul>
+    </div>
+    <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      function myFunction() {
+        (async () => {
+          let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
+          let el = document.getElementById('demo')
+          el.innerHTML = ""
+          let text = await response.text(); // прочитать тело ответа как текст
+          for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+            const newEl = document.createElement("li")
+            newEl.appendChild(document.createTextNode(`${key}: ${value}`))
+            el.appendChild(newEl)
+            await sleep(100)
+          }
+        })()
+      }
+
+    </script>
+     
+    <h1>Все представленное не несет смысловой нагрузки и является лишь демонстрацией полученных навыков</h1>
+  
+
+
+<style>
+  body {
+  min-height: 100%;  
+  background: #3c3c3c;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #222;
+  font-size: 14px;
+  line-height: 26px;
+  padding-bottom: 50px;
+  color: white;
+  text-align: center;
+}
+  .header {
+  margin-bottom: 30px;
+  margin-top: 100px;
+    
+  .full-name {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  
+  .first-name {
+    font-weight: 700;
+  }
+  
+  .last-name {
+    font-weight: 300;
+  }
+  
+  .contact-info {
+    margin-bottom: 20px;
+  }
+  
+  .email ,
+  .phone {
+    color: #9ACD32;
+    font-weight: 300;
+  } 
+  
+  .separator {
+    height: 10px;
+    display: inline-block;
+    border-left: 10px solid #00FF00;
+    margin: 0px 10px;
+  }
+  
+  .position {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: underline;
+  }
+}
+  .details {
+  line-height: 20px;
+  
+  .section {
+    margin-bottom: 40px;  
+  }
+  
+  .section:last-of-type {
+    margin-bottom: 0px;  
+  }
+  
+  .section__title {
+    letter-spacing: 2px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+  
+  .section__list-item {
+    margin-bottom: 40px;
+  }
+  
+  .section__list-item:last-of-type {
+    margin-bottom: 0;
+  }
+  
+  .left ,
+  .right {
+    vertical-align: top;
+    display: inline-block;
+  }
+  
+  .left {
+    width: 30%;    
+  }
+  
+  .right {
+    tex-align: right;
+    width: 30%;    
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+}
+  .picture {
+  margin-top: 30px;
+
+  .picture-title {
+    letter-spacing: 1px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+}
+.knopka {
+  margin-top: 30px;
+
+
+  .knopka-title {
+    letter-spacing: 1px;
+    color: #9ACD32;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+  .knopka-sama {
+    .styled {
+      border: 0;
+      line-height: 2.5;
+      padding: 0 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4B0082;
+      border-radius: 10px;
+      background-color: #9ACD32;
+    }
+    .styled:hover {
+      background-color: rgba(255, 0, 0, 1);
+    }
+    .styled:active {
+      background-color: rgba(0, 0, 255, 1);
+    }
+  }
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  justify-content: start;
+  min-height: 370px;
+  color: #9ACD32;
+  
+  .data__title {
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+  .btn {
+    border-radius: 4px;
+    border: solid 2px #4CAF50;
+    color: #DC143C;
+    background-color: #9ACD32;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 14px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: red;
+    color: #4B0082;
+  }
+
+}
+
+  h1 {
+    width: 550px;
+    font-size: 10px;
+    color: blue;
+    background-color: #FFDEAD;
+    border: 4px solid red;
+    margin: 0 auto;
+}
+  
+</style>
+</body></html>
